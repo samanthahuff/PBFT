@@ -31,14 +31,13 @@ matcomKOTA=[0.02315826,0.031950026,0.043929385,0.060121342,0.081771051,0.1103018
 matsq = [0, 0, 0.2, 0.5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 #DEFINE POPULATION MODEL
-def model(mat, year, all_fishing, name_all_fishing, trials, z):
+def model(mat, year, all_fishing, name_all_fishing, trials):
     # inputs to this model include:
     # mat: (list), a list of probability of maturity for each age class
     # year: (int), the number of years to run the model
     # all_fishing: list of age x year matrices of fishing mortality for each age class for each year, for each scenario
     # name_all_fishing: name of fishing 
     # trials: (int), number of trials to run the model
-    # z:(boolean), only used for the 50_3_6 projection to turn this projection on/off
     
     # set variables
     Linf = 254.41  # Linf=theoretical maximum age, obtained from stock assessment
@@ -117,14 +116,14 @@ def model(mat, year, all_fishing, name_all_fishing, trials, z):
                     if i == 0:  # for age0 calculate realized recruitment from expected 
                         Btable[n][x][i] = Rt[x - 1] * math.exp((-(sig ** 2) / 2) + numpy.random.normal(0, 0.6))  # put realized recruitment as population of age 0 fish
                         SBtable.append(Btable[n][x][i] * fecundities[i]) 
-                    if z == True and i <= 3 and i >= 0:  # this is only used for the 50_3_6 projection
+                    if f == 4 and i <= 3 and i >= 0:  # this is only used for the 50_3_6 projection
                         reduction = Btable[n][x - 1][i - 1] * math.exp(-M[i - 1] - all_fishing[f][x - 1][i - 1])
                         reduction = reduction * weights[i]
                         normal = Btable[n][x - 1][i - 1] * math.exp(-M[i - 1] - (all_fishing[f][x - 1][i - 1]) * (.5 / .3))
                         normal = normal * weights[i]
                         rollOver += reduction - normal
                     if i >= 1and i < 20:  # for age classes greater than 0
-                        if z == True and i > 3:  # this is only used for the 50_3_6 projection
+                        if f == 4 and i > 3:  # this is only used for the 50_3_6 projection
                             Btable[n][x][i] = Btable[n][x - 1][i - 1] * math.exp(-M[i - 1] - all_fishing[f][x - 1][i - 1]) - (rollOver / (17 * weights[i]))
                             SBtable.append(Btable[n][x][i] * fecundities[i])
                         else:  # calculate numbers at age based on the previous age in the previous year
@@ -132,7 +131,7 @@ def model(mat, year, all_fishing, name_all_fishing, trials, z):
                             Btable[n][x][i] = Btable[n][x - 1][i - 1] * math.exp(-M[i - 1] - all_fishing[f][x - 1][i - 1])
                             SBtable.append(Btable[n][x][i] * fecundities[i])
                     elif i == 20:  # different equations for age 20, accumulator age
-                        if z == True:  # this is only used for the 50_3_6 projection
+                        if f == 4:  # this is only used for the 50_3_6 projection
                             Btable[n][x][20] = (Btable[n][x - 1][i - 1] * math.exp(-M[i - 1] - all_fishing[f][x - 1][i - 1]) + Btable[n][x - 1][i] * math.exp(-M[i] - all_fishing[f][x - 1][i])) - (rollOver / (17 * weights[i]))
                             SBtable.append(Btable[n][x][20] * fecundities[20])
                         else:
@@ -251,6 +250,8 @@ def model(mat, year, all_fishing, name_all_fishing, trials, z):
     
 
 if __name__ == "__main__":
-#RUN model with status quo spawning schedule
-    model(matsq,30,all_fishing,name_all_fishing,1000,False)
-    model(matcomKOTA,30,all_fishing,name_all_fishing,1000,False)
+    #RUN model with status quo spawning schedule
+    model(matsq,30,all_fishing,name_all_fishing,1000)
+    
+    #RUN model with alternative spawning schedule 
+    #model(matcomKOTA,30,all_fishing,name_all_fishing,1000)
