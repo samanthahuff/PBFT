@@ -15,11 +15,13 @@ Table 1. Different conservation scenarios projected in the model.
 
 2. To run the model with the alternative schedule, comment the status quo command and uncomment the following command from population_model.py:
 
-![ssb_kg_conservations_scenarios2](https://user-images.githubusercontent.com/93396549/163520073-d8678b8c-8a6b-481e-9965-dee653fa7936.png)
-
 ```
 model(matcomKOTA,30,all_fishing,name_all_fishing,1000)
 ```
+
+![ssb_kg_conservations_scenarios2](https://user-images.githubusercontent.com/93396549/163520073-d8678b8c-8a6b-481e-9965-dee653fa7936.png)
+
+
 
 ### Changing model inputs
 
