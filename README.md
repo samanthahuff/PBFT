@@ -31,8 +31,8 @@ def model(mat, year, all_fishing, name_all_fishing, trials):
     # inputs to this model include:
     # mat: (list), a list of probability of maturity for each age class
     # year: (int), the number of years to run the model
-    # all_fishing: list of age x year matrices of fishing mortality for each age class for each year, for each scenario
-    # name_all_fishing: name of fishing 
+    # all_fishing (nested list): list of age x year matrices of fishing mortality for each age class for each year, for each scenario
+    # name_all_fishing (list): names of conservation scenarios
     # trials: (int), number of trials to run the model
 ```
 To simulate different spawning schedules, create a list of probability of maturities for each age class. 
