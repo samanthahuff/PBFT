@@ -247,10 +247,10 @@ def model(mat, year, all_fishing, name_all_fishing, trials, z):
     pl.arrow(10,400000, 0, -200000, head_width = .5, head_length = 25000, fc='black')
     
     fig = pl.figure(num=1, figsize=(13, 13), dpi=80, facecolor='w', edgecolor='k')
-    fig.savefig('test.png', bbox_inches='tight')
+    fig.savefig('ssb_kg_conservations_scenarios.png', bbox_inches='tight')
     
 
 if __name__ == "__main__":
 #RUN model with status quo spawning schedule
     model(matsq,30,all_fishing,name_all_fishing,1000,False)
-    #model(matcomKOTA,30,all_fishing,name_all_fishing,1000,False)
+    model(matcomKOTA,30,all_fishing,name_all_fishing,1000,False)
