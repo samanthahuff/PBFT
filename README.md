@@ -1,6 +1,8 @@
 # PBFT
 
 ### Running the model with status quo spawning schedule and/or the alternative spawning schedule 
+![ssb_kg_conservations_scenarios](https://user-images.githubusercontent.com/93396549/163519756-cccef58e-3658-457d-b2c5-9bda5fd81b0a.png)
+
 
 1. Run the population model with status quo spawning schedule for the conservation scenarios listed in Table 1:
 ```
